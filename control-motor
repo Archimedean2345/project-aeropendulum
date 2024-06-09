@@ -1,0 +1,22 @@
+#include <Servo.h>
+
+Servo esc;
+int vel = 1000;
+void setup() {
+  esc.attach(9);
+  Serial.begin(9600);
+}
+
+void loop(){
+  if(Serial.available() >= 1){
+    vel= Serial.parseInt();
+    if(vel != 0)
+    {
+      esc.writeMicroseconds(vel); //Generar un pulso con el numero recibido
+    }
+  }
+  unsigned long tiempo= millis();
+  Serial.print(tiempo);
+  Serial.print(" ");
+  Serial.println(vel);
+}
